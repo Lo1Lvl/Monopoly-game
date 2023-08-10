@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply font-montserrat font-semibold leading-none text-lime-800 focus:outline-none focus:ring focus:ring-green-800;
+}
+
+@layer components {
+  .gradient {
+    @apply bg-gradient-to-br from-green-600 to-lime-200;
+  }
+
+  .gradient-text {
+    @apply gradient bg-clip-text text-transparent;
+  }
+
+  .input {
+    @apply rounded-lg bg-zinc-500/40 px-2 py-1 text-lg font-medium placeholder:text-zinc-500;
+  }
+
+  .button {
+    @apply gradient rounded-lg px-2 py-[.5rem] font-bold transition-transform hover:scale-105 active:scale-100;
+  }
+
+  .button-secondary {
+    @apply rounded-lg bg-lime-600 px-2 py-[.5rem] font-bold transition-transform hover:scale-105 active:scale-100;
+  }
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  background-color: rgb(0, 0, 0);
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+#__next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
