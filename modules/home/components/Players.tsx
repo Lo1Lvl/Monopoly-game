@@ -16,7 +16,7 @@ const Players = ({
     <div>
       <p className="text-center text-2xl">Кто играет?</p>
 
-      <div className="mt-4 flex w-96 flex-col gap-4">
+      <div className="mt-4 flex w-72 flex-col gap-4 sm:w-96">
         {players.map(({ name, id }, index) => {
           return (
             <motion.label
