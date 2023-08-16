@@ -34,7 +34,7 @@ const ModalManager = () => {
   return (
     <Portal>
       <motion.div
-        className="z-40 flex min-h-full w-full items-center justify-center bg-black/80"
+        className="z-40 flex min-h-full w-full items-center justify-center bg-black/20"
         onClick={() => setModal({ modal: <></>, opened: false })}
         variants={bgAnimation}
         initial="closed"
@@ -48,7 +48,9 @@ const ModalManager = () => {
               exit="exited"
               onClick={(e) => e.stopPropagation()}
               className="relative flex w-full max-w-[20rem] flex-col items-center rounded-lg bg-zinc-900 p-6 sm:w-auto sm:min-w-[20rem] sm:max-w-none">
-              <button className="absolute right-1 top-1 rounded-lg p-2 text-lg transition-transform hover:scale-105 active:scale-100">
+              <button
+                className="absolute right-1 top-1 rounded-lg p-2 text-lg transition-transform hover:scale-105 active:scale-100"
+                onClick={() => setModal({ modal: <></>, opened: false })}>
                 <AiOutlineClose />
               </button>
 
