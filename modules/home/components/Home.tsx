@@ -7,6 +7,7 @@ import PlaceAllPlayers from "../modals/PlaceAllPlayers";
 import type { Player } from "../home.types";
 import Header from "./Header";
 import Players from "./Players";
+import { useRouter } from "next/router";
 
 const Home = () => {
   const [players, playersHandler] = useList<Player>([
@@ -16,14 +17,16 @@ const Home = () => {
 
   const { openModal } = useModal();
 
+  const router = useRouter();
   const handleStartGame = () => {
+    router.prefetch("/game");
     if (players.some((player) => !player.name)) {
       openModal(<PlaceAllPlayers />);
     } else {
       openModal(
         <Agreeing
           handleClick={() => {
-            console.log("введите игроков");
+            router.push("/game");
           }}
         />
       );
@@ -39,7 +42,7 @@ const Home = () => {
       <Header />
       <Players players={players} playersHandler={playersHandler} />
 
-      <motion.span className="block h-full w-full bg-zinc-800" layout />
+      <motion.span className="block h-px w-1/5 bg-lime-500 md:w-1/2" layout />
 
       <motion.button
         className="button w-72 transition-none sm:w-96"

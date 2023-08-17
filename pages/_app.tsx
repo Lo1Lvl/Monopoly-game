@@ -8,7 +8,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>Template</title>
+        <title>MonopolyGame</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainLayout>
