@@ -1,14 +1,18 @@
-import { useSetRecoilState } from 'recoil';
-
-import { modalAtom } from './modal.atom';
+import { useRecoilState } from "recoil";
+import { modalAtom } from "./modal.atom";
 
 const useModal = () => {
-  const setModal = useSetRecoilState(modalAtom);
+  const [modalSettings, setModal] = useRecoilState(modalAtom);
 
-  const openModal = (modal: JSX.Element | JSX.Element[]) =>
-    setModal({ modal, opened: true });
+  const openModal = (
+    modal: JSX.Element | JSX.Element[],
+    closeCallback?: () => void
+  ) => setModal({ modal, opened: true, closeCallback });
 
-  const closeModal = () => setModal({ modal: <></>, opened: false });
+  const closeModal = () => {
+    setModal({ modal: <></>, opened: false });
+    if (modalSettings.closeCallback) modalSettings.closeCallback();
+  };
 
   return { openModal, closeModal };
 };

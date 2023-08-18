@@ -44,7 +44,7 @@ const Dice = ({
 
   return (
     <button
-      className="button 20 absolute top-1/2 left-1/2 flex w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+      className="button absolute top-1/2 left-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
       onClick={handleRollDice}
       style={{ fontSize: tempDice === -1 ? "3.2rem" : "2.4rem" }}>
       {tempDice === -1 && <GiRollingDices />}

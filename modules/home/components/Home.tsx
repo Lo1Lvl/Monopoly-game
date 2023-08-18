@@ -1,16 +1,19 @@
 import { motion } from "framer-motion";
 import { useList } from "react-use";
 import { useModal } from "@/common/recoil/modal";
+import { usePlayers } from "@/common/recoil/players";
 import { HomeAnimation } from "../animations/Home.animations";
 import Agreeing from "../modals/Agreeing";
 import PlaceAllPlayers from "../modals/PlaceAllPlayers";
-import type { Player } from "../home.types";
+import type { PlayerName } from "../home.types";
 import Header from "./Header";
 import Players from "./Players";
 import { useRouter } from "next/router";
 
 const Home = () => {
-  const [players, playersHandler] = useList<Player>([
+  const { setupPlayers } = usePlayers();
+
+  const [players, playersHandler] = useList<PlayerName>([
     { name: "", id: 0 },
     { name: "", id: 1 },
   ]);
@@ -18,6 +21,7 @@ const Home = () => {
   const { openModal } = useModal();
 
   const router = useRouter();
+
   const handleStartGame = () => {
     router.prefetch("/game");
     if (players.some((player) => !player.name)) {
@@ -26,6 +30,7 @@ const Home = () => {
       openModal(
         <Agreeing
           handleClick={() => {
+            setupPlayers(players);
             router.push("/game");
           }}
         />
