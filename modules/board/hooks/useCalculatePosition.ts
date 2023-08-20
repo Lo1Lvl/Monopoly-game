@@ -1,22 +1,15 @@
-import { useEffect, useState } from "react";
-
-import { useInterval } from "react-use";
-
 import { usePlayers } from "@/common/recoil/players";
+import { useEffect } from "react";
 
-export const useCalculatePosition = (dice: number, currentPlayerIndex: number) => {
-  const { players } = usePlayers();
-  const oldPosition = players[currentPlayerIndex].position;
-
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [animationPosition, setAnimationPosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => setAnimationPosition(oldPosition), [oldPosition]);
-
+export const useCalculatePosition = (
+  dice: number,
+  currentPlayerIndex: number
+) => {
+  const { getPlayer, movePlayer } = usePlayers();
   useEffect(() => {
     if (dice === -1) return;
 
-    const { x, y } = oldPosition;
+    const { x, y } = getPlayer(currentPlayerIndex).position;
 
     let newX = x;
     let newY = y;
@@ -38,31 +31,6 @@ export const useCalculatePosition = (dice: number, currentPlayerIndex: number) =
       newX = newY === 0 ? dice - y : x;
     }
 
-    setPosition({ x: newX, y: newY });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    movePlayer(currentPlayerIndex, { x: newX, y: newY });
   }, [dice]);
-
-  const animate =
-    (animationPosition.x !== position.x ||
-      animationPosition.y !== position.y) &&
-    dice !== -1;
-
-  useInterval(
-    () => {
-      const { x, y } = animationPosition;
-
-      if (y === 0 && x !== 8) {
-        setAnimationPosition((prev) => ({ ...prev, x: prev.x + 1 }));
-      } else if (y < 8 && x === 8) {
-        setAnimationPosition((prev) => ({ ...prev, y: prev.y + 1 }));
-      } else if (y === 8 && x !== 0) {
-        setAnimationPosition((prev) => ({ ...prev, x: prev.x - 1 }));
-      } else if (y > 0 && x === 0) {
-        setAnimationPosition((prev) => ({ ...prev, y: prev.y - 1 }));
-      }
-    },
-    animate ? 250 : null
-  );
-
-  return animationPosition;
 };
